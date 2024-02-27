@@ -9,6 +9,7 @@ const Milliers = ({
   setNewCalcul,
   setScore,
   score,
+  newCalcul,
 }) => {
   const [nb1, setNb1] = useState();
   const [nb1S, setNb1S] = useState();
@@ -16,7 +17,7 @@ const Milliers = ({
   const [nb2S, setNb2S] = useState();
 
   useEffect(() => {
-    const number1 = Math.floor(Math.random() * 999999);
+    const number1 = Math.floor(Math.random() * 999997) + 1;
     const string = number1.toString();
     const length = string.length;
     const index = Math.floor(Math.random() * (length - 2));
@@ -67,15 +68,17 @@ const Milliers = ({
       <div>
         {nb1S} - {nb2S}
       </div>
-      <input
-        className="result-input"
-        type="text"
-        value={result}
-        placeholder="Résultat sans espace"
-        onChange={(event) => {
-          setResult(event.target.value);
-        }}
-      />
+      {!newCalcul && (
+        <input
+          className="result-input"
+          type="text"
+          value={result}
+          placeholder="Résultat sans espace"
+          onChange={(event) => {
+            setResult(event.target.value);
+          }}
+        />
+      )}
       <div className="consigne">
         {response ? (
           response

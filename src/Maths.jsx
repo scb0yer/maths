@@ -9,6 +9,8 @@ import Multiplier100 from "./components/Multiplier100";
 import Multiplier25 from "./components/Multiplier25";
 import Soustraction from "./components/Soustraction";
 import Suite from "./components/Suite";
+import Multiplier5 from "./components/Multiplier5";
+import Recomposition from "./components/Recomposition";
 
 const Maths = () => {
   const [index, setIndex] = useState();
@@ -52,6 +54,11 @@ const Maths = () => {
         console.log(data);
         alert("Tes résultats ont bien été enregistrés.");
         setSaveVisible(false);
+        setCount(1);
+        setRestart(!restart);
+        setResult(null);
+        setNewCalcul(false);
+        setScore([]);
       }
     } catch (error) {
       alert("Le mot de passe ou le prénom est incorrect.");
@@ -68,8 +75,8 @@ const Maths = () => {
     "multiplier",
     "multiplier25",
     "suite",
-    // "multiplier5",
-    // "recomposer",
+    "multiplier5",
+    "recomposition",
   ];
 
   return (
@@ -87,6 +94,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "complements1" && (
@@ -99,6 +107,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "complements2" && (
@@ -111,6 +120,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "milliers" && (
@@ -123,6 +133,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "multiplier100" && (
@@ -135,6 +146,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "multiplier" && (
@@ -147,6 +159,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "multiplier25" && (
@@ -159,6 +172,7 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
           />
         )}
         {strategies[index] === "suite" && (
@@ -171,6 +185,33 @@ const Maths = () => {
             setNewCalcul={setNewCalcul}
             setScore={setScore}
             score={score}
+            newCalcul={newCalcul}
+          />
+        )}
+        {strategies[index] === "multiplier5" && (
+          <Multiplier5
+            restart={restart}
+            response={response}
+            setResponse={setResponse}
+            result={result}
+            setResult={setResult}
+            setNewCalcul={setNewCalcul}
+            setScore={setScore}
+            score={score}
+            newCalcul={newCalcul}
+          />
+        )}
+        {strategies[index] === "recomposition" && (
+          <Recomposition
+            restart={restart}
+            response={response}
+            setResponse={setResponse}
+            result={result}
+            setResult={setResult}
+            setNewCalcul={setNewCalcul}
+            setScore={setScore}
+            score={score}
+            newCalcul={newCalcul}
           />
         )}
       </div>
@@ -200,7 +241,7 @@ const Maths = () => {
             {saveVisible && (
               <>
                 <input
-                  type="text"
+                  type="password"
                   value={password}
                   placeholder="code"
                   onChange={(event) => {
@@ -234,6 +275,7 @@ const Maths = () => {
           </>
         )}
       </div>
+      <br />
       <div>
         <Link to="/defi-tables">
           <button className="retour-btn">Défi Tables</button>

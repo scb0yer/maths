@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Complements1 = ({
+const Recomposition = ({
   restart,
   response,
   setResponse,
@@ -12,33 +12,44 @@ const Complements1 = ({
   newCalcul,
 }) => {
   const [nb1, setNb1] = useState();
+  const [nb1S, setNb1S] = useState();
   const [nb2, setNb2] = useState();
   const [nb3, setNb3] = useState();
-  const [nb4, setNb4] = useState();
 
   useEffect(() => {
-    const total = Math.floor(Math.random() * 6) + 3;
-    const sstotal1 = (Math.floor(Math.random() * (total - 1)) + 1) * 100;
-    const sstotal2 = total * 100 - sstotal1;
-    const number1 = Math.floor(Math.random() * (sstotal1 - 1)) + 1;
-    const number2 = sstotal1 - number1;
-    const number3 = Math.floor(Math.random() * (sstotal2 - 1)) + 1;
-    const number4 = sstotal2 - number3;
+    const number1 = Math.floor(Math.random() * 99995) + 4;
     setNb1(number1);
+    setNb1S(displaynumber(number1));
+    const number2 = Math.floor(Math.random() * 7) + 1;
     setNb2(number2);
+    const number3 = 9 - number2;
     setNb3(number3);
-    setNb4(number4);
   }, [restart]);
+
+  const displaynumber = (number) => {
+    const nombre = number.toString();
+    const tab = nombre.split("");
+    const newTab = [];
+
+    for (let t = 0; t < tab.length; t++) {
+      if (t === tab.length - 3) {
+        newTab.push(` ${tab[t]}`);
+      } else {
+        newTab.push(`${tab[t]}`);
+      }
+    }
+    return newTab.join("");
+  };
 
   const calcul = () => {
     const newScore = [...score];
-    const answer = nb1 + nb3 + nb4 + nb2;
+    const answer = nb1 * 10;
     if (result.toString() === answer.toString()) {
       setResponse("Bien joué !");
       newScore.push(1);
     } else {
       setResponse(
-        `La bonne réponse était ${answer}, Il fallait repérer les compléments à 100 en additionnant ${nb1} et ${nb2} puis ${nb3} et ${nb4}`
+        `La bonne réponse était ${answer}. Il y a en tout ${nb2} + ${nb3} + 1 fois ${nb1S}, ça fait 10 x ${nb1S}.`
       );
       newScore.push(0);
     }
@@ -49,7 +60,7 @@ const Complements1 = ({
   return (
     <div>
       <div>
-        {nb1} + {nb2} + {nb3} + {nb4}
+        ({nb1S} x {nb2}) + {nb1S} + ({nb3} x {nb1S})
       </div>
       {!newCalcul && (
         <input
@@ -85,4 +96,4 @@ const Complements1 = ({
     </div>
   );
 };
-export default Complements1;
+export default Recomposition;

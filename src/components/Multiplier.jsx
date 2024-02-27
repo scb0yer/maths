@@ -9,6 +9,7 @@ const Multiplier = ({
   setNewCalcul,
   setScore,
   score,
+  newCalcul,
 }) => {
   const [nb1, setNb1] = useState();
   const [factor, setFactor] = useState();
@@ -45,15 +46,17 @@ const Multiplier = ({
   return (
     <div>
       <div>{addition}</div>
-      <input
-        className="result-input"
-        type="text"
-        value={result}
-        placeholder="Résultat sans espace"
-        onChange={(event) => {
-          setResult(event.target.value);
-        }}
-      />
+      {!newCalcul && (
+        <input
+          className="result-input"
+          type="text"
+          value={result}
+          placeholder="Résultat sans espace"
+          onChange={(event) => {
+            setResult(event.target.value);
+          }}
+        />
+      )}
       <div className="consigne">
         {response ? (
           response
