@@ -73,15 +73,20 @@ const Players = () => {
       }
       const table = newPlayers[index].table;
       const set = newPlayers[index].set;
-      if (table < tables.length - 1 && newPlayers.length % 3 > 0) {
-        console.log("OK");
+      console.log(tables.length, table);
+      if (table + 1 === tables.length - 1 && newPlayers.length % 3 > 0) {
+        newPlayers[index].table = table + 1;
+        newPlayers[index].role = "joueur";
+      } else if (
+        table + 1 === tables.length - 2 &&
+        newPlayers.length % 3 === 1
+      ) {
         newPlayers[index].table = table + 1;
         newPlayers[index].role = "joueur";
       } else if (table < tables.length - 1) {
         newPlayers[index].table = table + 1;
         newPlayers[index].role = "observateur";
       }
-
       newPlayers[index].points++;
       newPlayers[index].set++;
       for (let p = 0; p < newPlayers.length; p++) {
