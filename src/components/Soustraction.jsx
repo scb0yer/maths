@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import picto from "../assets/clue.png";
 
 const Soustraction = ({
   restart,
@@ -10,11 +11,13 @@ const Soustraction = ({
   setScore,
   score,
   newCalcul,
+  strategie,
 }) => {
   const [nb1, setNb1] = useState();
   const [nb1S, setNb1S] = useState();
   const [nb2, setNb2] = useState();
   const [nb2S, setNb2S] = useState();
+  const [clue, setClue] = useState(false);
 
   useEffect(() => {
     const nb = Math.floor(Math.random() * 999997) + 2;
@@ -58,9 +61,18 @@ const Soustraction = ({
 
   return (
     <div>
-      <div>
-        {nb1S} - {nb2S}
+      <div className="flex">
+        {nb1S} - {nb2S}{" "}
+        <img
+          src={picto}
+          alt="indice"
+          className="clue"
+          onClick={() => {
+            setClue(!clue);
+          }}
+        />
       </div>
+      {clue && <p className="grey">{strategie}</p>}
       {!newCalcul && (
         <input
           className="result-input"
@@ -74,7 +86,11 @@ const Soustraction = ({
       )}
       <div className="consigne">
         {response ? (
-          response
+          <>
+            <div className="grey">{strategie}</div>
+            <br />
+            <div>{response}</div>
+          </>
         ) : (
           <button
             className="calcul-btn"
@@ -83,6 +99,7 @@ const Soustraction = ({
                 calcul();
                 setResult("");
                 setNewCalcul(true);
+                setClue(false);
               } else {
                 alert("Tu dois entrer une réponse pour la tester.");
               }

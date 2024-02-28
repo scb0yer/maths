@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import picto from "../assets/clue.png";
 
 const Recomposition = ({
   restart,
@@ -10,11 +11,13 @@ const Recomposition = ({
   setScore,
   score,
   newCalcul,
+  strategie,
 }) => {
   const [nb1, setNb1] = useState();
   const [nb1S, setNb1S] = useState();
   const [nb2, setNb2] = useState();
   const [nb3, setNb3] = useState();
+  const [clue, setClue] = useState(false);
 
   useEffect(() => {
     const number1 = Math.floor(Math.random() * 99995) + 4;
@@ -59,9 +62,18 @@ const Recomposition = ({
 
   return (
     <div>
-      <div>
-        ({nb1S} x {nb2}) + {nb1S} + ({nb3} x {nb1S})
+      <div className="flex">
+        ({nb1S} x {nb2}) + {nb1S} + ({nb3} x {nb1S}){" "}
+        <img
+          src={picto}
+          alt="indice"
+          className="clue"
+          onClick={() => {
+            setClue(!clue);
+          }}
+        />
       </div>
+      {clue && <p className="grey">{strategie}</p>}
       {!newCalcul && (
         <input
           className="result-input"
@@ -75,7 +87,11 @@ const Recomposition = ({
       )}
       <div className="consigne">
         {response ? (
-          response
+          <>
+            <div className="grey">{strategie}</div>
+            <br />
+            <div>{response}</div>
+          </>
         ) : (
           <button
             className="calcul-btn"
@@ -84,6 +100,7 @@ const Recomposition = ({
                 calcul();
                 setResult("");
                 setNewCalcul(true);
+                setClue(false);
               } else {
                 alert("Tu dois entrer une réponse pour la tester.");
               }

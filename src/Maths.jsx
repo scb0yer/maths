@@ -11,6 +11,8 @@ import Soustraction from "./components/Soustraction";
 import Suite from "./components/Suite";
 import Multiplier5 from "./components/Multiplier5";
 import Recomposition from "./components/Recomposition";
+import validate from "./assets/validate.png";
+import cancel from "./assets/cancel.png";
 
 const Maths = () => {
   const [index, setIndex] = useState();
@@ -67,16 +69,16 @@ const Maths = () => {
   };
 
   const strategies = [
-    "soustraction",
-    "complements1",
-    "complements2",
-    "milliers",
-    "multiplier100",
-    "multiplier",
-    "multiplier25",
-    "suite",
-    "multiplier5",
-    "recomposition",
+    "Soustraire terme à terme",
+    "Les compléments à 10",
+    "Les compléments à 100",
+    "Enlever des dizaines, centaines, unités de mille...",
+    "Multiplier par 10 ou 100",
+    "Une série de nombre identiques",
+    "Multiplier par 25",
+    "Une suite de nombres",
+    "Multiplier par 5",
+    "Recomposer une multiplication",
   ];
 
   return (
@@ -84,7 +86,7 @@ const Maths = () => {
       <h1>Défi Maths</h1>
       <div className="center">
         <div> Calcul n° {count}</div>
-        {strategies[index] === "soustraction" && (
+        {strategies[index] === "Soustraire terme à terme" && (
           <Soustraction
             restart={restart}
             response={response}
@@ -95,9 +97,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "complements1" && (
+        {strategies[index] === "Les compléments à 10" && (
           <Complements1
             restart={restart}
             response={response}
@@ -108,9 +111,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "complements2" && (
+        {strategies[index] === "Les compléments à 100" && (
           <Complements2
             restart={restart}
             response={response}
@@ -121,9 +125,11 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "milliers" && (
+        {strategies[index] ===
+          "Enlever des dizaines, centaines, unités de mille..." && (
           <Milliers
             restart={restart}
             response={response}
@@ -134,9 +140,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "multiplier100" && (
+        {strategies[index] === "Multiplier par 10 ou 100" && (
           <Multiplier100
             restart={restart}
             response={response}
@@ -147,9 +154,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "multiplier" && (
+        {strategies[index] === "Une série de nombre identiques" && (
           <Multiplier
             restart={restart}
             response={response}
@@ -160,9 +168,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "multiplier25" && (
+        {strategies[index] === "Multiplier par 25" && (
           <Multiplier25
             restart={restart}
             response={response}
@@ -173,9 +182,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "suite" && (
+        {strategies[index] === "Une suite de nombres" && (
           <Suite
             restart={restart}
             response={response}
@@ -186,9 +196,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "multiplier5" && (
+        {strategies[index] === "Multiplier par 5" && (
           <Multiplier5
             restart={restart}
             response={response}
@@ -199,9 +210,10 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
-        {strategies[index] === "recomposition" && (
+        {strategies[index] === "Recomposer une multiplication" && (
           <Recomposition
             restart={restart}
             response={response}
@@ -212,6 +224,7 @@ const Maths = () => {
             setScore={setScore}
             score={score}
             newCalcul={newCalcul}
+            strategie={strategies[index]}
           />
         )}
       </div>
@@ -241,7 +254,8 @@ const Maths = () => {
             {saveVisible && (
               <>
                 <input
-                  type="password"
+                  className="input-save"
+                  type="text"
                   value={password}
                   placeholder="code"
                   onChange={(event) => {
@@ -249,6 +263,7 @@ const Maths = () => {
                   }}
                 />
                 <input
+                  className="input-save"
                   type="text"
                   value={name}
                   placeholder="Prénom"
@@ -256,20 +271,28 @@ const Maths = () => {
                     setName(event.target.value);
                   }}
                 />
-                <button
-                  onClick={() => {
-                    save();
-                  }}
-                >
-                  Valider
-                </button>
-                <button
-                  onClick={() => {
-                    setSaveVisible(false);
-                  }}
-                >
-                  Annuler
-                </button>
+                <div className="validate-cancel">
+                  <div>
+                    <img
+                      className="validate"
+                      src={validate}
+                      alt="valider"
+                      onClick={() => {
+                        save();
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className="cancel"
+                      src={cancel}
+                      alt="cancel"
+                      onClick={() => {
+                        setSaveVisible(false);
+                      }}
+                    />
+                  </div>
+                </div>
               </>
             )}
           </>

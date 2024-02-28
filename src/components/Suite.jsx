@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import picto from "../assets/clue.png";
 
 const Suite = ({
   restart,
@@ -10,8 +11,10 @@ const Suite = ({
   setScore,
   score,
   newCalcul,
+  strategie,
 }) => {
   const [nb, setNb] = useState([]);
+  const [clue, setClue] = useState(false);
 
   useEffect(() => {
     let number1 = Math.floor(Math.random() * 5) + 2;
@@ -54,7 +57,18 @@ const Suite = ({
 
   return (
     <div>
-      <div>{nb.join(` + `)}</div>
+      <div className="flex">
+        {nb.join(` + `)}{" "}
+        <img
+          src={picto}
+          alt="indice"
+          className="clue"
+          onClick={() => {
+            setClue(!clue);
+          }}
+        />
+      </div>
+      {clue && <p className="grey">{strategie}</p>}
       {!newCalcul && (
         <input
           className="result-input"
@@ -68,7 +82,11 @@ const Suite = ({
       )}
       <div className="consigne">
         {response ? (
-          response
+          <>
+            <div className="grey">{strategie}</div>
+            <br />
+            <div>{response}</div>
+          </>
         ) : (
           <button
             className="calcul-btn"
@@ -77,6 +95,7 @@ const Suite = ({
                 calcul();
                 setResult("");
                 setNewCalcul(true);
+                setClue(false);
               } else {
                 alert("Tu dois entrer une réponse pour la tester.");
               }

@@ -253,6 +253,7 @@ const Players = () => {
               borderStyle: "solid",
               borderWidth: "1px",
               borderRadius: "10px",
+              padding: "5px",
             }}
           >
             {nextEleves}

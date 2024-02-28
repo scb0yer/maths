@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import picto from "../assets/clue.png";
 
 const Multiplier = ({
   restart,
@@ -10,10 +11,12 @@ const Multiplier = ({
   setScore,
   score,
   newCalcul,
+  strategie,
 }) => {
   const [nb1, setNb1] = useState();
   const [factor, setFactor] = useState();
   const [addition, setAddition] = useState();
+  const [clue, setClue] = useState(false);
 
   useEffect(() => {
     const number1 = Math.floor(Math.random() * 8) + 1;
@@ -45,7 +48,18 @@ const Multiplier = ({
 
   return (
     <div>
-      <div>{addition}</div>
+      <div className="flex">
+        {addition}{" "}
+        <img
+          src={picto}
+          alt="indice"
+          className="clue"
+          onClick={() => {
+            setClue(!clue);
+          }}
+        />
+      </div>
+      {clue && <p className="grey">{strategie}</p>}
       {!newCalcul && (
         <input
           className="result-input"
@@ -59,7 +73,11 @@ const Multiplier = ({
       )}
       <div className="consigne">
         {response ? (
-          response
+          <>
+            <div className="grey">{strategie}</div>
+            <br />
+            <div>{response}</div>
+          </>
         ) : (
           <button
             className="calcul-btn"
@@ -68,6 +86,7 @@ const Multiplier = ({
                 calcul();
                 setResult("");
                 setNewCalcul(true);
+                setClue(false);
               } else {
                 alert("Tu dois entrer une réponse pour la tester.");
               }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import picto from "../assets/clue.png";
 
 const Complements1 = ({
   restart,
@@ -10,11 +11,13 @@ const Complements1 = ({
   setScore,
   score,
   newCalcul,
+  strategie,
 }) => {
   const [nb1, setNb1] = useState();
   const [nb2, setNb2] = useState();
   const [nb3, setNb3] = useState();
   const [nb4, setNb4] = useState();
+  const [clue, setClue] = useState(false);
 
   useEffect(() => {
     const total = Math.floor(Math.random() * 6) + 3;
@@ -48,9 +51,18 @@ const Complements1 = ({
 
   return (
     <div>
-      <div>
-        {nb1} + {nb2} + {nb3} + {nb4}
+      <div className="flex">
+        {nb1} + {nb2} + {nb3} + {nb4}{" "}
+        <img
+          src={picto}
+          alt="indice"
+          className="clue"
+          onClick={() => {
+            setClue(!clue);
+          }}
+        />
       </div>
+      {clue && <p className="grey">{strategie}</p>}
       {!newCalcul && (
         <input
           className="result-input"
@@ -64,7 +76,11 @@ const Complements1 = ({
       )}
       <div className="consigne">
         {response ? (
-          response
+          <>
+            <div className="grey">{strategie}</div>
+            <br />
+            <div>{response}</div>
+          </>
         ) : (
           <button
             className="calcul-btn"
@@ -73,6 +89,7 @@ const Complements1 = ({
                 calcul();
                 setResult("");
                 setNewCalcul(true);
+                setClue(false);
               } else {
                 alert("Tu dois entrer une réponse pour la tester.");
               }
